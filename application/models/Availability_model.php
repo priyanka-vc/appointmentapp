@@ -13,7 +13,7 @@ class Availability_model extends CI_Model {
         $this->user_id      = $user_id;
         $this->date         = $date;
         $this->from_time    = $from;
-        $this->to_time      = '';
+        $this->to_time      = $to;
         $this->created_at =  date("Y-m-d H:i:s");
 
         return $this->db->insert('availability', $this);

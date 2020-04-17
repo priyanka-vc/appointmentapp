@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Availability extends CI_Model {
+class Availability_model extends CI_Model {
 
     public $user_id;
     public $date;
@@ -12,9 +12,10 @@ class Availability extends CI_Model {
     {
         $this->user_id      = $user_id;
         $this->date         = $date;
-        $this->from_time    = $from_time;
-        $this->to_time      = $to_time;
+        $this->from_time    = $from;
+        $this->to_time      = '';
+        $this->created_at =  date("Y-m-d H:i:s");
 
-        $this->db->insert('availability', $this);
+        return $this->db->insert('availability', $this);
     }
 }

@@ -10,7 +10,7 @@ class Availability_model extends CI_Model {
 
     public function add($user_id, $date, $from, $to)
     {
-        $this->user_id      = $user_id;
+        $this->user_id      = 1;
         $this->date         = $date;
         $this->from_time    = $from;
         $this->to_time      = $to;

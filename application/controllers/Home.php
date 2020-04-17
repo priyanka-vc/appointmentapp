@@ -32,15 +32,15 @@ class Home extends CI_Controller {
         $this->form_validation->set_rules('from_time', 'From Time', 'required');
         $this->form_validation->set_rules('to_time', 'To Time', 'required');
 
-       /* if ($this->form_validation->run() === TRUE)
-        {*/
+        if ($this->form_validation->run() === TRUE)
+        {
             $this->availability->add(
                 $this->session->user_id,
                 $this->input->post('date'),
                 $this->input->post('from_time'),
                 $this->input->post('to_time')
             );
-        //}
+        }
 
         $this->load->view('header');
         $this->load->view('doctors/add_availibility');

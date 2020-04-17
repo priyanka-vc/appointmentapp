@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="row">
     <div class="col-md-12 order-md-1">
-        <h4 class="mb-3">Add available time slots</h4>
+        <h4 class="mb-3">List of available</h4>
+
     </div>
 </div>

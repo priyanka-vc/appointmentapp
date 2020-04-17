@@ -16,3 +16,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 <body class="bg-light">
 <div class="container">
+
+    <?php
+    if($this->session->flashdata()) { ?>
+
+    <div class="alert alert-danger" role="alert">
+        <?php
+        $flash = $this->session->flashdata();
+        foreach ($flash as $f) {
+            echo $f, '<br/>';
+        }
+        ?>
+    </div>
+
+    <?php } ?>

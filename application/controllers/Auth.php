@@ -110,7 +110,9 @@ class Auth extends CI_Controller
 				'type' => 'password',
 			];
 
+            $this->load->view('header');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
+            $this->load->view('footer');
 		}
 	}
 
@@ -456,16 +458,11 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Create a new user
+	 * Register a New User
 	 */
-	public function create_user()
+	public function register()
 	{
 		$this->data['title'] = $this->lang->line('create_user_heading');
-
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('auth', 'refresh');
-		}
 
 		$tables = $this->config->item('tables', 'ion_auth');
 		$identity_column = $this->config->item('identity', 'ion_auth');
@@ -487,12 +484,14 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+		$this->form_validation->set_rules('group', 'user Type', 'required');
 
 		if ($this->form_validation->run() === TRUE)
 		{
 			$email = strtolower($this->input->post('email'));
 			$identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
 			$password = $this->input->post('password');
+			$group = $this->input->post('group');
 
 			$additional_data = [
 				'first_name' => $this->input->post('first_name'),
@@ -501,7 +500,7 @@ class Auth extends CI_Controller
 				'phone' => $this->input->post('phone'),
 			];
 		}
-		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
+		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data, [$group]))
 		{
 			// check to see if we are creating the user
 			// redirect them back to the admin page
@@ -562,8 +561,15 @@ class Auth extends CI_Controller
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
+            $this->data['group'] = [
+                'name' => 'group',
+                'id' => 'group',
+                'value' => $this->form_validation->set_value('group'),
+            ];
 
+            $this->load->view('header');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+            $this->load->view('footer');
 		}
 	}
 	/**

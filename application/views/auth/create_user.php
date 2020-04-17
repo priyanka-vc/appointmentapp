@@ -1,9 +1,10 @@
 <h1><?php echo lang('create_user_heading');?></h1>
 <p><?php echo lang('create_user_subheading');?></p>
 
-<div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/create_user");?>
+<?php if($message) : ?> <div class="alert alert-danger"><?php echo $message;?></div> <?php endif; ?>
+
+<?php echo form_open("auth/register");?>
 
       <p>
             <?php echo lang('create_user_fname_label', 'first_name');?> <br />
@@ -51,7 +52,12 @@
             <?php echo form_input($password_confirm);?>
       </p>
 
+        <p>
+            User Type <br />
+            <?php echo form_dropdown($group, ['1' => 'Doctor', '2' => 'Patient']);?>
+        </p>
 
-      <p><?php echo form_submit('submit', lang('create_user_submit_btn'));?></p>
+
+      <p><?php echo form_submit('submit', lang('create_user_submit_btn'), ['class' => 'btn btn-primary']);?></p>
 
 <?php echo form_close();?>

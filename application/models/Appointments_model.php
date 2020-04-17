@@ -9,6 +9,11 @@ class Appointments_model extends CI_Model {
     public $status;
     public $created_at;
 
+    /**
+     * Get appointment list by patients
+     * @param $patient_id
+     * @return mixed
+     */
     public function get_appointments_of_patient($patient_id)
     {
         return $this->db
@@ -27,7 +32,10 @@ class Appointments_model extends CI_Model {
             ]);
     }
 
-
+    /**Get appointments list of docters
+     * @param $doctor_id
+     * @return mixed
+     */
     public function get_appointments_of_doctor($doctor_id)
     {
         return $this->db
@@ -46,6 +54,12 @@ class Appointments_model extends CI_Model {
             ]);
     }
 
+    /**
+     * Book appointment by patient
+     * @param $availability_id
+     * @param $user_id
+     * @return mixed
+     */
     public function book_appointment($availability_id, $user_id)
     {
         $slot = $this->db->get_where('availability', ['id' => $availability_id]);

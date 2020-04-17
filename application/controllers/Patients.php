@@ -18,6 +18,10 @@ class Patients extends CI_Controller {
         }
     }
 
+    /**
+     * Get all availability list of all doctors
+     * @return array
+     */
     public function index()
 	{
 	    $slots = $this->availability->get_todays_available_slots();
@@ -30,6 +34,10 @@ class Patients extends CI_Controller {
         $this->load->view('footer');
 	}
 
+    /**
+     * Book slot by availability id
+     * @param $id
+     */
     public function book($id)
     {
         $this->appointments->book_appointment($id, $this->session->user_id);

@@ -19,6 +19,10 @@ class Availability_model extends CI_Model {
         return $this->db->insert('availability', $this);
     }
 
+    /**
+     * Get all slots available for today
+     * @return mixed
+     */
     public function get_todays_available_slots()
     {
         return $this->db
@@ -39,6 +43,10 @@ class Availability_model extends CI_Model {
             ]);
     }
 
+    /**Get available slots for doctors
+     * @param $doctor_id
+     * @return mixed
+     */
     public function get_todays_available_slots_of_doctor($doctor_id)
     {
         return $this->db

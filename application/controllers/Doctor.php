@@ -13,11 +13,16 @@ class Doctor extends CI_Controller {
         $this->load->model('Appointments_model', 'appointments');
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
-            // redirect them to the home page because they must be an administrator to view this
+            // redirect them to the home page because they must be an administrator/doctor to view this
             redirect('home','refresh');
         }
     }
 
+    /**
+     * Get list of all slot booked by loggIN docter and list of all appointment by patients
+     * @param null
+     * @return array
+     */
     public function index()
     {
         $slots = $this->availability->get_todays_available_slots_of_doctor($this->ion_auth->get_user_id());
@@ -30,6 +35,10 @@ class Doctor extends CI_Controller {
         $this->load->view('footer');
     }
 
+    /**
+     * Add availabilty for appointment by doctor
+     * @param $request
+     */
     public function add_availability()
     {
         $this->load->model('Availability_model', 'availability');

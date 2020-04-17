@@ -67,10 +67,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     ?>
                     <tr>
-                        <td><?php echo date('d/m/Y',strtotime($slot->date)); ?></td>
-                        <td><?php echo date('g:i a',strtotime($slot->from_time)); ?></td>
-                        <td><?php echo date('g:i a',strtotime($slot->to_time)); ?></td>
-                        <td><?php echo $slot->first_name, ' ', $slot->last_name; ?></td>
+                        <td><?php echo date('d/m/Y',strtotime($appointment->date)); ?></td>
+                        <td><?php echo date('g:i a',strtotime($appointment->from_time)); ?></td>
+                        <td><?php echo date('g:i a',strtotime($appointment->to_time)); ?></td>
+                        <td><?php echo $appointment->first_name, ' ', $appointment->last_name; ?></td>
                     </tr>
                     <?php
                 }

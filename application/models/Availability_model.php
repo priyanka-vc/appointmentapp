@@ -18,4 +18,24 @@ class Availability_model extends CI_Model {
 
         return $this->db->insert('availability', $this);
     }
+
+    public function get_todays_available_slots()
+    {
+        return $this->db
+            ->select([
+                'availability.*',
+                'appointments.doctor_id',
+                'appointments.patient_id',
+                'appointments.availability_id',
+                'appointments.status',
+                'users.first_name',
+                'users.last_name'
+            ])
+            ->join('users', 'users.id = availability.user_id', 'left')
+            ->join('appointments', 'appointments.availability_id = availability.id', 'left')
+            ->get_where('availability', [
+                'date' => date('Y-m-d'),
+                'availability_id' => NULL
+            ]);
+    }
 }

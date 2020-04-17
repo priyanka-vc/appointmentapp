@@ -9,6 +9,7 @@ class Home extends CI_Controller {
         $this->load->database();
         $this->load->library(['ion_auth', 'form_validation', 'session']);
         $this->load->helper('dropdown_helper');
+        //comment
     }
 
     public function index()

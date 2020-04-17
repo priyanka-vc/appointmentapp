@@ -29,4 +29,10 @@ class Patients extends CI_Controller {
         ]);
         $this->load->view('footer');
 	}
+
+    public function book($id)
+    {
+        $this->appointments->book_appointment($id, $this->session->user_id);
+        redirect("/patients", 'refresh');
+    }
 }

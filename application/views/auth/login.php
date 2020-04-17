@@ -21,7 +21,7 @@
   </p>
 
 
-  <p><?php echo form_submit('submit', lang('login_submit_btn'));?></p>
+  <p><?php echo form_submit('submit', lang('login_submit_btn'), ['class' => 'btn btn-success']);?></p>
 
 <?php echo form_close();?>
 

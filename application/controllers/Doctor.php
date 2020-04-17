@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DoctorController extends CI_Controller {
+class Doctor extends CI_Controller {
 
     public function __construct()
     {
@@ -9,6 +9,8 @@ class DoctorController extends CI_Controller {
         $this->load->database();
         $this->load->library(['ion_auth', 'form_validation', 'session']);
         $this->load->helper('dropdown_helper');
+        $this->load->model('Availability_model', 'availability');
+        $this->load->model('Appointments_model', 'appointments');
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
             // redirect them to the home page because they must be an administrator to view this
@@ -17,21 +19,14 @@ class DoctorController extends CI_Controller {
     }
 
     public function index()
-	{
-        $this->load->view('header');
-        $this->load->view('welcome');
-        $this->load->view('footer');
-	}
-
-
-    public function doctor_dashboard()
     {
-        $this->db->select('user_id, date, from_time, to_time');
-        $this->db->where('user_id','1');
-        $this->db->from('availability');
-        $query = $this->db->get();
+        $slots = $this->availability->get_todays_available_slots_of_doctor($this->ion_auth->get_user_id());
+        $appointments = $this->appointments->get_appointments_of_doctor($this->session->user_id);
         $this->load->view('header');
-        $this->load->view('doctors/dashboard',['records'=>$query->result()]);
+        $this->load->view('doctors/dashboard',[
+            'slots'=> $slots,
+            'appointments' => $appointments
+        ]);
         $this->load->view('footer');
     }
 
@@ -51,6 +46,9 @@ class DoctorController extends CI_Controller {
                 $this->input->post('from_time'),
                 $this->input->post('to_time')
             );
+
+            redirect("/doctor", 'refresh');
+
         }
 
         $this->load->view('header');

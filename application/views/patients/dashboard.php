@@ -27,9 +27,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     ?>
                     <tr>
-                        <td><?php echo $slot->date; ?></td>
-                        <td><?php echo $slot->from_time; ?></td>
-                        <td><?php echo $slot->to_time; ?></td>
+                        <td><?php echo date('d/m/Y',strtotime($slot->date)); ?></td>
+                        <td><?php echo date("g:i a", strtotime($slot->from_time)); ?></td>
+                        <td><?php echo date("g:i a", strtotime($slot->to_time)); ?></td>
                         <td><?php echo $slot->first_name, ' ', $slot->last_name; ?></td>
                         <td><a href="/patients/book/<?php echo $slot->id; ?>" class="btn btn-success">Book</a></td>
                     </tr>
@@ -59,9 +59,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     ?>
                     <tr>
-                        <td><?php echo $slot->date; ?></td>
-                        <td><?php echo $slot->from_time; ?></td>
-                        <td><?php echo $slot->to_time; ?></td>
+                        <td><?php echo date('d/m/Y',strtotime($slot->date)); ?></td>
+                        <td><?php echo date("g:i a", strtotime($slot->from_time)); ?></td>
+                        <td><?php echo date("g:i a", strtotime($slot->to_time)); ?></td>
                         <td><?php echo $slot->first_name, ' ', $slot->last_name; ?></td>
                     </tr>
                     <?php
